@@ -12,9 +12,11 @@
   "dependencies": {
     "mysql": "^2.18.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.50.1"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react-swc": "^3.5.0",

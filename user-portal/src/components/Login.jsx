@@ -1,36 +1,45 @@
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import {  DevTool } from '@hookform/devtools'
 import '../styles/login.css'
 function Login() {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const form = useForm();
+  const {register, control, handleSubmit, formState} = form;
+  const { errors } = formState;
 
-  const submit = (event) => {
+  const submit = (data) => {
     event.preventDefault()
+    console.log(data)
   }
-
-  const handleChange = (e) => {
-
-    if(e.target.type === 'password')  setPassword(e.target.value);
-    else  setEmail(e.target.value);
-
-  };
-
 
   return (
     <div className="form-container">
-      <form>
+      <form onSubmit={handleSubmit(submit)} noValidate>
       <div className='form-innercontainer'>
       <h3 className='formheader'><center>Login in to User Management</center></h3>
       <div className='form-components'>
-        <label >Email</label>
-        <input type="text" value={email} onChange={handleChange} className='emailInput' name='email' placeholder = 'asirmsamdm@gmail.com' />
-        <label >Password</label>
-        <input type="password" value={password} onChange={handleChange} className='loginpass' name='password' />
-        <div><center><button onClick={submit} className='submit'>SEND</button></center></div>
+        <label htmlFor='email'>Email</label>
+        <input type="text" className='emailInput' id="email" {...register('email',{
+          required:"email is mandatory", pattern : {
+            value:/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/,
+            message : 'Please enter a valid email address',
+          }
+        })} placeholder = 'asirmsamdm@gmail.com' />
+        <p className='error'>{errors.email?.message}</p>
+        <label htmlFor='password'>Password</label>
+        <input type="password"  className='loginpass' id='password' {...register('password',{
+          required:"password is mandatory",
+            pattern : {
+              value:  /^\d+$/,
+              message : "Enter Valid Password Format" 
+            }
+        })}/>
+          <p className='error'>{errors.password?.message}</p>
+        <div><center><button className='submit'>SEND</button></center></div>
       </div>
       </div>
       </form>
+      <DevTool control={control}/>
     </div>
   )
 
