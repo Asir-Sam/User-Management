@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 import {  DevTool } from '@hookform/devtools'
+import { Link } from 'react-router-dom'
 import '../styles/login.css'
 function Login() {
 
@@ -23,7 +24,10 @@ function Login() {
           required:"email is mandatory", pattern : {
             value:/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/,
             message : 'Please enter a valid email address',
-          }
+          },
+            validate : function(value) {
+              return value !== 'asirsam@gmail.com' || "Please Enter Different email"
+            }
         })} placeholder = 'asirmsamdm@gmail.com' />
         <p className='error'>{errors.email?.message}</p>
         <label htmlFor='password'>Password</label>
@@ -40,7 +44,11 @@ function Login() {
       </div>
       </form>
       <DevTool control={control}/>
+      <div>   
+       <Link to='/'>Home Page</Link>
     </div>
+    </div>
+
   )
 
 }
