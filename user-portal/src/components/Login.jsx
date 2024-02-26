@@ -1,16 +1,27 @@
 import { useForm } from 'react-hook-form'
 import {  DevTool } from '@hookform/devtools'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom' 
+//import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import '../styles/login.css'
 function Login() {
 
   const form = useForm();
   const {register, control, handleSubmit, formState} = form;
   const { errors } = formState;
+ // const navigation = useNavigate();
+
 
   const submit = (data) => {
     event.preventDefault()
-    console.log(data)
+    console.log(data);
+    axios.post(`http://localhost:3000/api/userauth`, { data })
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
+    })
+
+   // navigation('dashboard', {replace:false});
   }
 
   return (
@@ -45,7 +56,7 @@ function Login() {
       </form>
       <DevTool control={control}/>
       <div>   
-       <Link to='/'>Home Page</Link>
+       <NavLink to='/'>Home Page</NavLink>
     </div>
     </div>
 
