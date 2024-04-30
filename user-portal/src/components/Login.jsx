@@ -1,27 +1,30 @@
+/* eslint-disable no-constant-condition */
 import { useForm } from 'react-hook-form'
 import {  DevTool } from '@hookform/devtools'
 import { NavLink } from 'react-router-dom' 
-//import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/login.css'
+import { useEffect } from 'react'
 function Login() {
 
   const form = useForm();
   const {register, control, handleSubmit, formState} = form;
   const { errors } = formState;
- // const navigation = useNavigate();
+  
+  const navigation = useNavigate();
+  useEffect(() => {
 
+  });
 
   const submit = (data) => {
     event.preventDefault()
-    console.log(data);
+    let response;
     axios.post(`http://localhost:3000/api/userauth`, { data })
     .then(res => {
-      console.log(res);
-      console.log(res.data);
+      response = res.data;
+      response == "LoginSuccessful" ? navigation('/dashboard') : navigation('/login');
     })
-
-   // navigation('dashboard', {replace:false});
   }
 
   return (
